@@ -8,24 +8,34 @@ class Translator {
 
   translate(text, locale) {
     if (locale === "american-to-british") {
-        const words = text.toLowerCase().split(" ");
-        console.log("Words: ", words);
+      const words = text.split(" ");
       const originalWords = [...words];
-      
+
       for (let i = 0; i < words.length; i++) {
-        const word = words[i];
+        const word = words[i].toLowerCase();
         if (americanToBritishTitles[word]) {
-          words[
-            i
-          ] = `<span class="highlight">${americanToBritishTitles[word]}</span>`;
+          words[i] = `<span class="highlight">${
+            i === 0
+              ? americanToBritishTitles[word].charAt(0).toUpperCase() +
+                americanToBritishTitles[word].slice(1)
+              : americanToBritishTitles[word]
+          }</span>`;
         } else if (americanToBritishSpelling[word]) {
-          words[
-            i
-          ] = `<span class="highlight">${americanToBritishSpelling[word]}</span>`;
+          words[i] = `<span class="highlight">${
+            i === 0
+              ? americanToBritishSpelling[word].charAt(0).toUpperCase() +
+                americanToBritishSpelling[word].slice(1)
+              : americanToBritishSpelling[word]
+          }</span>`;
         } else if (americanOnly[word]) {
-          words[i] = `<span class="highlight">${americanOnly[word]}</span>`;
+          words[i] = `<span class="highlight">${
+            i === 0
+              ? americanOnly[word].charAt(0).toUpperCase() +
+                americanOnly[word].slice(1)
+              : americanOnly[word]
+          }</span>`;
         } else if (word.includes(":")) {
-            words[i] = `<span class="highlight">${word.replace(":", ".")}</span>`;
+          words[i] = `<span class="highlight">${word.replace(":", ".")}</span>`;
         }
       }
       if (words === originalWords) {
@@ -34,15 +44,20 @@ class Translator {
         return words.join(" ").replace(/^\w/, (c) => c.toUpperCase());
       }
     } else if (locale === "british-to-american") {
-      const words = text.toLowerCase().split(" ");
+      const words = text.split(" ");
       const originalWords = [...words];
 
       for (let i = 0; i < words.length; i++) {
-        const word = words[i];
+        const word = words[i].toLowerCase();
         if (britishOnly[word]) {
-          words[i] = `<span class="highlight">${britishOnly[word]}</span>`;
+          words[i] = `<span class="highlight">${
+            i === 0
+              ? britishOnly[word].charAt(0).toUpperCase() +
+                britishOnly[word].slice(1)
+              : britishOnly[word]
+          }</span>`;
         } else if (word.includes(".")) {
-            words[i] = `<span class="highlight">${word.replace(".", ":")}</span>`;
+          words[i] = `<span class="highlight">${word.replace(".", ":")}</span>`;
         }
       }
 
