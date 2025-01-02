@@ -116,5 +116,37 @@ suite('Unit Tests', () => {
       assert.strictEqual(result, 'Tea time is usually around 4 or <span class="highlight">4:30</span>.');
     });
 
+    test('Highlight translation in Mangoes are my favorite fruit.', () => {
+      const result = translator.translate('Mangoes are my favorite fruit.', 'american-to-british');
+      assert.strictEqual(
+        result,
+        'Mangoes are my <span class="highlight">favourite</span> fruit.'
+      );
+    });
+
+    test('Highlight translation in I ate yogurt for breakfast.', () => {
+      const result = translator.translate('I ate yogurt for breakfast.', 'american-to-british');
+      assert.strictEqual(
+        result,
+        'I ate <span class="highlight">yoghurt</span> for breakfast.'
+      );
+    });
+
+    test('Highlight translation in We watched the footie match for a while.', () => {
+      const result = translator.translate('We watched the footie match for a while.', 'british-to-american');
+      assert.strictEqual(
+        result,
+        'We watched the <span class="highlight">soccer</span> match for a while.'
+      );
+    });
+
+    test('Highlight translation in Paracetamol takes up to an hour to work.', () => {
+      const result = translator.translate('Paracetamol takes up to an hour to work.', 'british-to-american');
+      assert.strictEqual(
+        result,
+        '<span class="highlight">Tylenol</span> takes up to an hour to work.'
+      );
+    });
+
 });
 
