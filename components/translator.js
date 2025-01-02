@@ -8,27 +8,49 @@ class Translator {
 
   translate(text, locale) {
     if (locale === "american-to-british") {
-      const words = text.toLowerCase().split(" ");
+        const words = text.toLowerCase().split(" ");
+        console.log("Words: ", words);
+      const originalWords = [...words];
+      
       for (let i = 0; i < words.length; i++) {
         const word = words[i];
         if (americanToBritishTitles[word]) {
-          words[i] = americanToBritishTitles[word];
+          words[
+            i
+          ] = `<span class="highlight">${americanToBritishTitles[word]}</span>`;
         } else if (americanToBritishSpelling[word]) {
-          words[i] = americanToBritishSpelling[word];
+          words[
+            i
+          ] = `<span class="highlight">${americanToBritishSpelling[word]}</span>`;
         } else if (americanOnly[word]) {
-          words[i] = americanOnly[word];
+          words[i] = `<span class="highlight">${americanOnly[word]}</span>`;
+        } else if (word.includes(":")) {
+            words[i] = `<span class="highlight">${word.replace(":", ".")}</span>`;
         }
       }
-      return words.join(" ");
+      if (words === originalWords) {
+        return "Everything looks good to me!";
+      } else {
+        return words.join(" ").replace(/^\w/, (c) => c.toUpperCase());
+      }
     } else if (locale === "british-to-american") {
       const words = text.toLowerCase().split(" ");
+      const originalWords = [...words];
+
       for (let i = 0; i < words.length; i++) {
         const word = words[i];
         if (britishOnly[word]) {
-          words[i] = britishOnly[word];
+          words[i] = `<span class="highlight">${britishOnly[word]}</span>`;
+        } else if (word.includes(".")) {
+            words[i] = `<span class="highlight">${word.replace(".", ":")}</span>`;
         }
       }
-      return words.join(" ");
+
+      if (words === originalWords) {
+        return "Everything looks good to me!";
+      } else {
+        return words.join(" ").replace(/^\w/, (c) => c.toUpperCase());
+      }
     } else {
       throw new Error("Invalid locale");
     }
